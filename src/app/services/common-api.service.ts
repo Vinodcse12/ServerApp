@@ -6,6 +6,9 @@ import { Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class CommonApiService {
+  confirm(ACTION: any) {
+    throw new Error('Method not implemented.');
+  }
 
   storageMax = new Subject();
   storageMin = new Subject();

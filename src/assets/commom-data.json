@@ -1,20 +1,4 @@
-{
-  "maxRange" : [
-    { "id": 1, "label": "4TB", "value": 4000 },
-    { "id": 2, "label": "8TB", "value": 8000 },
-    { "id": 3, "label": "12TB", "value": 12000 },
-    { "id": 4, "label": "24TB", "value": 24000 },
-    { "id": 5, "label": "48TB", "value": 48000 },
-    { "id": 5, "label": "72TB", "value": 72000 }   
-  ],
-  "minRange": [
-    { "id": 1, "label": "0", "value": 0 },
-    { "id": 2, "label": "500", "value": 250 },
-    { "id": 3, "label": "500", "value": 500 },
-    { "id": 4, "label": "1TB", "value": 1000 },
-    { "id": 5, "label": "2TB", "value": 2000 },
-    { "id": 6, "label": "3TB", "value": 3000 }   
-  ],
+{  
   "ramList": [
     { "id": 1, "label": "2GB", "value": 2 },
     { "id": 2, "label": "4GB", "value": 4 },
