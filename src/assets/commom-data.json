@@ -1,0 +1,42 @@
+{
+  "maxRange" : [
+    { "id": 1, "label": "4TB", "value": 4000 },
+    { "id": 2, "label": "8TB", "value": 8000 },
+    { "id": 3, "label": "12TB", "value": 12000 },
+    { "id": 4, "label": "24TB", "value": 24000 },
+    { "id": 5, "label": "48TB", "value": 48000 },
+    { "id": 5, "label": "72TB", "value": 72000 }   
+  ],
+  "minRange": [
+    { "id": 1, "label": "0", "value": 0 },
+    { "id": 2, "label": "500", "value": 250 },
+    { "id": 3, "label": "500", "value": 500 },
+    { "id": 4, "label": "1TB", "value": 1000 },
+    { "id": 5, "label": "2TB", "value": 2000 },
+    { "id": 6, "label": "3TB", "value": 3000 }   
+  ],
+  "ramList": [
+    { "id": 1, "label": "2GB", "value": 2 },
+    { "id": 2, "label": "4GB", "value": 4 },
+    { "id": 3, "label": "8GB", "value": 16 },
+    { "id": 4, "label": "16GB", "value": 24 },
+    { "id": 5, "label": "24GB", "value": 32 },
+    { "id": 6, "label": "32GB", "value": 64 },
+    { "id": 7, "label": "64GB", "value": 116 },
+    { "id": 7, "label": "116GB", "value": 132 }
+  ],
+  "hddList": [
+    { "name" :"SAS", "checked" : false},
+    { "name" :"SSD", "checked" : false},
+    { "name" :"SATA2", "checked" : false}
+  ],
+  "locations": [
+    { "id": 1, "value": "AmsterdamAMS-01"},
+    { "id": 2, "value": "Washington D.C.WDC-01"},
+    { "id": 3, "value": "San FranciscoSFO-12"},
+    { "id": 4, "value": "SingaporeSIN-11"},
+    { "id": 5, "value": "DallasDAL-10"},
+    { "id": 6, "value": "FrankfurtFRA-10"},
+    { "id": 7, "value": "Hong KongHKG-10"}
+  ]
+}
