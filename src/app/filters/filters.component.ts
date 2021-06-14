@@ -1,6 +1,10 @@
 import { Options } from '@angular-slider/ngx-slider';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { map } from 'rxjs/operators';
+
+import { CommonApiService } from '../services/common-api.service';
+
 
 @Component({
   selector: 'app-filters',
@@ -29,65 +33,63 @@ export class FiltersComponent implements OnInit {
       { value: 10, legend: "10TB" }
     ]
   };
+  storageMin: any;
+  storageMax: any;
   
-  hddList= [
-    { "name" :"SAS", "checked" : false},
-    { "name" :"SSD", "checked" : false},
-    { "name" :"SATA2", "checked" : false}
-  ];
-  locations = [
-    { "id": 1, "value": "AmsterdamAMS-01"},
-    { "id": 2, "value": "Washington D.C.WDC-01"},
-    { "id": 3, "value": "San FranciscoSFO-12"},
-    { "id": 4, "value": "SingaporeSIN-11"},
-    { "id": 5, "value": "DallasDAL-10"},
-    { "id": 6, "value": "FrankfurtFRA-10"},
-    { "id": 7, "value": "Hong KongHKG-10"}
-  ];
-  ramList = [
-    { "id": 1, "label": "2GB", "value": 2 },
-    { "id": 2, "label": "4GB", "value": 4 },
-    { "id": 3, "label": "8GB", "value": 16 },
-    { "id": 4, "label": "16GB", "value": 24 },
-    { "id": 5, "label": "24GB", "value": 32 },
-    { "id": 6, "label": "32GB", "value": 64 },
-    { "id": 7, "label": "64GB", "value": 116 },
-    { "id": 7, "label": "116GB", "value": 132 }
-  ];
-  constructor(private formBuilder: FormBuilder) { 
+  hddList:any[]= [];
+  locations:any[] = [];
+  ramList: any[] = [];
+  constructor(private formBuilder: FormBuilder, private commonServiceApi: CommonApiService) { 
     this.form = this.formBuilder.group({
       ramLi : this.formBuilder.array([], [Validators.required])
     })
   }
 
   ngOnInit(): void {
+    this.commonServiceApi.getCommonData()
+      .pipe(
+        map((res: any) => {
+          return res;
+        })
+      ).subscribe((cmData: any) => {
+        this.ramList = cmData.ramList;
+        this.hddList = cmData.hddList;
+        this.locations = cmData.locations;
+      })
   }
 
   getRangeValue(e: any) {
-    console.log(e);
+    if(e.pointerType === 0) {
+      this.storageMin = (e.value != this.options.ceil) ? e.value * 1000 : '';     
+      this.commonServiceApi.setMinStorage(this.storageMin);
+
+    }
+    if(e.pointerType === 1) {
+      this.storageMax = (e.value != this.options.floor) ? e.highValue * 1000 : ''
+      this.commonServiceApi.setMaxStorage(this.storageMax);
+    }
   }
 
   shareCheckedList(item:any[]){
-    console.log(item);
+    this.commonServiceApi.setSelectedHdds(item);
   }
   shareIndividualCheckedList(item:{}){
-    console.log(item);
+    //console.log(item);
   }
 
   changeLocation(e: any) {
-
+    this.commonServiceApi.setSelectedLocation(e.target.value);
   }
 
   onCheckboxChange(e: any) {
-    const ramList : FormArray = this.form.get('ramLi') as FormArray;
-  
+    const ramList : FormArray = this.form.get('ramLi') as FormArray;  
     if (e.target.checked) {
       ramList.push(new FormControl(e.target.value));
     } else {
        const index = ramList.controls.findIndex(x => x.value === e.target.value);
        ramList.removeAt(index);
     }
-    console.log(ramList);
+    this.commonServiceApi.setSelectedRams(ramList.value);
   }
 
 }
