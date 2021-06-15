@@ -5,6 +5,7 @@ import { By } from '@angular/platform-browser';
 import { delay } from 'rxjs/operators';
 import { CommonApiService } from '../services/common-api.service';
 import * as Rx from 'rxjs';
+import { of } from 'rxjs';
 
 import { FiltersComponent } from './filters.component';
 
@@ -16,16 +17,16 @@ describe('FiltersComponent', () => {
     floor: 0,
     ceil: 10,
     stepsArray: [
-      { value: 0, legend: "0" }      
+      { value: 0, legend: "0" }
     ]
   };
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FiltersComponent ],
+      declarations: [FiltersComponent],
       imports: [ReactiveFormsModule, HttpClientTestingModule]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {
@@ -42,31 +43,30 @@ describe('FiltersComponent', () => {
     const fixture = TestBed.createComponent(FiltersComponent);
     fixture.detectChanges();
     const form = fixture.debugElement.query(By.css('form'));
-    expect(form).toBeTruthy();    
+    expect(form).toBeTruthy();
   });
 
   it('should render ngx-slider', () => {
     const fixture = TestBed.createComponent(FiltersComponent);
     fixture.detectChanges();
     const ngxSlider = fixture.debugElement.query(By.css('ngx-slider'));
-    expect(ngxSlider).toBeTruthy();    
+    expect(ngxSlider).toBeTruthy();
   });
 
   it('should render app-multi-select-dropdown', () => {
     const fixture = TestBed.createComponent(FiltersComponent);
     fixture.detectChanges();
     const multiSelectDropdownComponent = fixture.debugElement.query(By.css('app-multi-select-dropdown'));
-    expect(multiSelectDropdownComponent).toBeTruthy();    
+    expect(multiSelectDropdownComponent).toBeTruthy();
   });
 
   it('should call getCommonData and get response as undeined', fakeAsync(() => {
     const fixture = TestBed.createComponent(FiltersComponent);
     const component = fixture.debugElement.componentInstance;
     const service = fixture.debugElement.injector.get(CommonApiService);
-    let spy_getPosts = spyOn(service,"getCommonData").and.callFake(() => {
+    let spy_getPosts = spyOn(service, "getCommonData").and.callFake(() => {
       return Rx.of([]).pipe(delay(100));
     });
-    //component.getPostDetails();
     expect(component.getCommonData).toEqual(undefined);
   }))
 
@@ -84,7 +84,7 @@ describe('FiltersComponent', () => {
     const fixture = TestBed.createComponent(FiltersComponent);
     component = fixture.componentInstance;
     let e = {
-      pointerType : 1,
+      pointerType: 1,
       value: 1,
       hignhValue: 2
     }
@@ -96,7 +96,7 @@ describe('FiltersComponent', () => {
     const fixture = TestBed.createComponent(FiltersComponent);
     component = fixture.componentInstance;
     let e = {
-      pointerType : 0,
+      pointerType: 0,
       value: 1,
       hignhValue: 2
     }
@@ -104,7 +104,7 @@ describe('FiltersComponent', () => {
     component.getRangeValue(e);
   });
 
-  it('should render funtion shareCheckedList  ', () => {
+  it('should render funtion shareCheckedList and pass item ', () => {
     const fixture = TestBed.createComponent(FiltersComponent);
     component = fixture.componentInstance;
     let item = [{}]
@@ -112,7 +112,7 @@ describe('FiltersComponent', () => {
     component.shareCheckedList(item);
   });
 
-  it('should render funtion shareCheckedList  ', () => {
+  it('should render funtion shareIndividualCheckedList  ', () => {
     const fixture = TestBed.createComponent(FiltersComponent);
     component = fixture.componentInstance;
     let item = [{}]
@@ -120,12 +120,58 @@ describe('FiltersComponent', () => {
     component.shareIndividualCheckedList(item);
   });
 
-  // it('should render funtion changeLocation  ', () => {
-  //   const fixture = TestBed.createComponent(FiltersComponent);
-  //   component = fixture.componentInstance;    
-  //   fixture.detectChanges();
-  //   component.changeLocation('USA');
-  // });
-  
+  it('called changeLocation function on onchange location', () => {
+    const fixture = TestBed.createComponent(FiltersComponent);
+    component = fixture.componentInstance;
+    let e = {
+      target: {
+        value: 'AmsterdamAMS-01'
+      }
+    }
+    fixture.detectChanges();
+    component.changeLocation(e);
+  });
+
+  it('called onCheckboxChange function on checked ram', () => {
+    const fixture = TestBed.createComponent(FiltersComponent);
+    component = fixture.componentInstance;
+    let e = {
+      target: {
+        checked: true,
+        value: 2
+      }
+    }
+    fixture.detectChanges();
+    component.onCheckboxChange(e);
+  });
+
+  it('called getCommonData end point successfully', () => {
+    const response: any[] = [
+      {
+        ramList: [
+          { "id": 1, "label": "2GB", "value": 2 }
+        ],
+        hddList: [
+          { "name": "SAS", "checked": false }
+        ],
+        locations: [
+          { "id": 1, "value": "AmsterdamAMS-01" }
+        ]
+      }
+    ]
+    let fixture = TestBed.createComponent(FiltersComponent);
+    let component = fixture.debugElement.componentInstance;
+    const service = fixture.debugElement.injector.get(CommonApiService);
+    spyOn(service, 'getCommonData').and.returnValue(of(response));
+    fixture.detectChanges();
+    fixture.whenStable().then(() => {
+      component.ramList = response[0].ramList;
+      component.hddList = response[0].hddList;
+      component.locations = response[0].locations;
+      expect(component.ramList).toEqual(response[0].ramList);
+      expect(component.hddList).toEqual(response[0].hddList);
+      expect(component.locations).toEqual(response[0].locations);
+    });
+  });
 
 });

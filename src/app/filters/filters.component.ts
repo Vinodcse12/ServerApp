@@ -12,7 +12,7 @@ import { CommonApiService } from '../services/common-api.service';
   styleUrls: ['./filters.component.css']
 })
 export class FiltersComponent implements OnInit {
-  
+    
   value: number = 0;
   highValue: number = 10;
   form: FormGroup;
@@ -63,7 +63,6 @@ export class FiltersComponent implements OnInit {
     if(e.pointerType === 0) {
       this.storageMin = (e.value != this.options.floor) ? e.value * 1000 : '';     
       this.commonServiceApi.setMinStorage(this.storageMin);
-
     }
     if(e.pointerType === 1) {
       this.storageMax = (e.highValue != this.options.ceil) ? e.highValue * 1000 : ''
@@ -93,5 +92,4 @@ export class FiltersComponent implements OnInit {
     console.log(ramList.value)
     this.commonServiceApi.setSelectedRams(ramList.value);
   }
-
 }
