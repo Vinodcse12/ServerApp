@@ -14,7 +14,7 @@ export class MultiSelectDropdownComponent implements OnInit {
   showDropDown = false;
   checkedList: any[];
   currentSelected: {} | undefined;
-  
+
   constructor() {
     this.checkedList = [];
   }
@@ -40,5 +40,4 @@ export class MultiSelectDropdownComponent implements OnInit {
   shareIndividualStatus() {
     this.shareIndividualCheckedList.emit(this.currentSelected);
   }
-
 }

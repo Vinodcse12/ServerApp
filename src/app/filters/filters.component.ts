@@ -65,7 +65,7 @@ export class FiltersComponent implements OnInit {
 
     }
     if(e.pointerType === 1) {
-      this.storageMax = (e.value != this.options.floor) ? e.highValue * 1000 : ''
+      this.storageMax = (e.highValue != this.options.floor) ? e.highValue * 1000 : ''
       this.commonServiceApi.setMaxStorage(this.storageMax);
     }
   }

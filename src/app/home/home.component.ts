@@ -70,6 +70,9 @@ export class HomeComponent implements OnInit {
         })
       ).subscribe((res: any) => {
         this.serverList = res;
+      },
+      (err: any) => {
+        console.log(err);
       })
   }
 }
