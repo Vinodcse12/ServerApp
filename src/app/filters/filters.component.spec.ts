@@ -11,6 +11,14 @@ import { FiltersComponent } from './filters.component';
 describe('FiltersComponent', () => {
   let component: FiltersComponent;
   let fixture: ComponentFixture<FiltersComponent>;
+  let options = {
+    showTicksValues: true,
+    floor: 0,
+    ceil: 10,
+    stepsArray: [
+      { value: 0, legend: "0" }      
+    ]
+  };
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -62,15 +70,62 @@ describe('FiltersComponent', () => {
     expect(component.getCommonData).toEqual(undefined);
   }))
 
-  // it('should call getCommonData and get response as undeined', fakeAsync(() => {
+  it('should select value', fakeAsync(() => {
+    let select: HTMLSelectElement = fixture.debugElement.query(By.css('.select')).nativeElement;
+    fixture.detectChanges();
+    fixture.whenStable().then(() => {
+      let text = select.options[select.selectedIndex].label;
+      expect(text).toBeTruthy();
+      expect(text).toBe('Choose ...');
+    });
+  }));
+
+  it('should render funtion getRangeValue with pointerType 1 ', () => {
+    const fixture = TestBed.createComponent(FiltersComponent);
+    component = fixture.componentInstance;
+    let e = {
+      pointerType : 1,
+      value: 1,
+      hignhValue: 2
+    }
+    fixture.detectChanges();
+    component.getRangeValue(e);
+  });
+
+  it('should render funtion getRangeValue with pointerType 0 ', () => {
+    const fixture = TestBed.createComponent(FiltersComponent);
+    component = fixture.componentInstance;
+    let e = {
+      pointerType : 0,
+      value: 1,
+      hignhValue: 2
+    }
+    fixture.detectChanges();
+    component.getRangeValue(e);
+  });
+
+  it('should render funtion shareCheckedList  ', () => {
+    const fixture = TestBed.createComponent(FiltersComponent);
+    component = fixture.componentInstance;
+    let item = [{}]
+    fixture.detectChanges();
+    component.shareCheckedList(item);
+  });
+
+  it('should render funtion shareCheckedList  ', () => {
+    const fixture = TestBed.createComponent(FiltersComponent);
+    component = fixture.componentInstance;
+    let item = [{}]
+    fixture.detectChanges();
+    component.shareIndividualCheckedList(item);
+  });
+
+  // it('should render funtion changeLocation  ', () => {
   //   const fixture = TestBed.createComponent(FiltersComponent);
-  //   const component = fixture.debugElement.componentInstance;
-  //   const service = fixture.debugElement.injector.get(CommonApiService);
-  //   let spy_getPosts = spyOn(service,"setMaxStorage")
-  //   //component.getPostDetails();
-  //   expect(spy_getPosts).toEqual(undefined);
-  // }))
-  
+  //   component = fixture.componentInstance;    
+  //   fixture.detectChanges();
+  //   component.changeLocation('USA');
+  // });
   
 
 });

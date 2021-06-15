@@ -7,21 +7,21 @@
   <div class="form-group">
     <label for="website">Select Ram </label>
     <div *ngFor="let rm of ramList">
-      <label>
-        <input type="checkbox" [value]="rm.value" (change)="onCheckboxChange($event)" />
+      <label class="ram-list">
+        <input id="simpleInput" type="checkbox" [value]="rm.value" (change)="onCheckboxChange($event)" />
         {{rm.label}}
       </label>
     </div>
   </div>
   <div class="form-group">
     <label for="password">Select HDD</label>
-    <app-multi-select-dropdown [list]="hddList" (shareCheckedList)="shareCheckedList($event)"
+    <app-multi-select-dropdown class="multi-select" [list]="hddList" (shareCheckedList)="shareCheckedList($event)"
       (shareIndividualCheckedList)="shareIndividualCheckedList($event)">
     </app-multi-select-dropdown>
   </div>
   <div class="form-group">
     <label for="password">Select Location</label>
-    <select class="form-control" (change)="changeLocation($event)">
+    <select class="form-control select" (change)="changeLocation($event)">
       <option>Choose ...</option>
       <option *ngFor="let location of locations">{{location.value}}</option>
     </select>

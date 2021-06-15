@@ -20,7 +20,7 @@ export class MultiSelectDropdownComponent implements OnInit {
   }
 
   ngOnInit() {
-    
+    this.currentSelected = [];
   }
 
   getSelectedValue(status: Boolean, value: String) {

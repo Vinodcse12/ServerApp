@@ -30,4 +30,18 @@ describe('MultiSelectDropdownComponent', () => {
     const button = fixture.debugElement.query(By.css('button'));
     expect(button).toBeTruthy();    
   });
+
+  it('should render funtion getSelectedValue with true status ', () => {
+    const fixture = TestBed.createComponent(MultiSelectDropdownComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+    component.getSelectedValue(true, '24GB');
+  });
+
+  it('should render funtion getSelectedValue with false status', () => {
+    const fixture = TestBed.createComponent(MultiSelectDropdownComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+    component.getSelectedValue(false, '24GB');
+  });
 });

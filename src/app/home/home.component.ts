@@ -27,12 +27,12 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.getServers(this.minParam, this.maxParam, this.ramParam, this.hddParam, this.locParam);
-    this.commonServiceApi.storageMax
+    this.commonServiceApi.storageMin
       .subscribe((res: any) => {
         this.minParam = res;
         this.getServers(this.minParam, this.maxParam, this.ramParam, this.hddParam, this.locParam);
       })
-    this.commonServiceApi.storageMin
+    this.commonServiceApi.storageMax
       .subscribe((res: any) => {
         this.maxParam = res;
         this.getServers(this.minParam, this.maxParam, this.ramParam, this.hddParam, this.locParam);
