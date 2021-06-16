@@ -30,26 +30,31 @@ export class HomeComponent implements OnInit {
     this.commonServiceApi.storageMin
       .subscribe((res: any) => {
         this.minParam = res;
+        this.serverList = [];
         this.getServers(this.minParam, this.maxParam, this.ramParam, this.hddParam, this.locParam);
       })
     this.commonServiceApi.storageMax
       .subscribe((res: any) => {
         this.maxParam = res;
+        this.serverList = [];
         this.getServers(this.minParam, this.maxParam, this.ramParam, this.hddParam, this.locParam);
       })
     this.commonServiceApi.selectedRams
       .subscribe((res: any) => {
         this.ramParam = res;
+        this.serverList = [];
         this.getServers(this.minParam, this.maxParam, this.ramParam, this.hddParam, this.locParam);
       })
     this.commonServiceApi.selectedHdds
       .subscribe((res: any) => {
         this.hddParam = res;
+        this.serverList = [];
         this.getServers(this.minParam, this.maxParam, this.ramParam, this.hddParam, this.locParam);
       })
     this.commonServiceApi.selectedLocation
       .subscribe((res: any) => {
         this.locParam = res;
+        this.serverList = [];
         this.getServers(this.minParam, this.maxParam, this.ramParam, this.hddParam, this.locParam);
       })
   }

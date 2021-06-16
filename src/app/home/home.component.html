@@ -26,8 +26,8 @@
       </table>
       <pagination-controls (pageChange)="p = $event"></pagination-controls>
     </div>
-    <div *ngIf="serverList.length === 0">
-      <span>Loading ...</span>
+    <div *ngIf="serverList.length === 0" style="text-align:center;">
+      <app-loading-spinner></app-loading-spinner>
     </div>
   </div>
 </div>

@@ -9,6 +9,7 @@ import { NgxSliderModule } from '@angular-slider/ngx-slider';
 import { MultiSelectDropdownComponent } from './multi-select-dropdown/multi-select-dropdown.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     HeaderComponent,
     HomeComponent,
     FiltersComponent,
-    MultiSelectDropdownComponent
+    MultiSelectDropdownComponent,
+    LoadingSpinnerComponent
   ],
   imports: [
     BrowserModule,
