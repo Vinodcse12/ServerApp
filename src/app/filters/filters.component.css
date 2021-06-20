@@ -1,0 +1,22 @@
+.flex-contaier{
+  display: flex;
+  flex-wrap: wrap;
+  padding: 2px;
+}
+
+.flex-items {
+  margin: 1em 4px;  
+}
+
+.left-float {
+  float: left;
+}
+
+.right-fload {
+  float: right;
+}
+
+.form-container {
+  padding-bottom: 20px;
+  border-bottom: solid 1px lightgrey;
+}

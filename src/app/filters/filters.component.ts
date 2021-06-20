@@ -12,37 +12,40 @@ import { CommonApiService } from '../services/common-api.service';
   styleUrls: ['./filters.component.css']
 })
 export class FiltersComponent implements OnInit {
-    
+
   value: number = 0;
-  highValue: number = 10;
+  highValue: number = 11;
   form: FormGroup;
   options: Options = {
     showTicksValues: true,
     floor: 0,
-    ceil: 10,
+    ceil: 11,
+    tickValueStep: 0,
     stepsArray: [
       { value: 0, legend: "0" },
-      { value: 1  },
-      { value: 2, legend: "2TB" },
+      { value: 1 },
+      { value: 2, legend: "500GB" },
       { value: 3 },
-      { value: 4, legend: "4TB" },
-      { value: 5},
-      { value: 6, legend: "6TB" },
+      { value: 4, legend: "2TB" },
+      { value: 5 },
+      { value: 6, legend: "4TB" },
       { value: 7 },
-      { value: 8, legend: "8TB" },
+      { value: 8, legend: "12TB" },
       { value: 9 },
-      { value: 10, legend: "10TB" }
+      { value: 10, legend: "48TB" },
+      { value: 11 }
     ]
   };
   storageMin: any;
   storageMax: any;
-  
-  hddList:any[]= [];
-  locations:any[] = [];
+
+  hddList: any[] = [];
+  locations: any[] = [];
   ramList: any[] = [];
-  constructor(private formBuilder: FormBuilder, private commonServiceApi: CommonApiService) { 
+  rangStorageMap: any[] = [];
+  constructor(private formBuilder: FormBuilder, private commonServiceApi: CommonApiService) {
     this.form = this.formBuilder.group({
-      ramLi : this.formBuilder.array([], [Validators.required])
+      ramLi: this.formBuilder.array([], [Validators.required])
     })
   }
 
@@ -56,24 +59,29 @@ export class FiltersComponent implements OnInit {
         this.ramList = cmData.ramList;
         this.hddList = cmData.hddList;
         this.locations = cmData.locations;
+        this.rangStorageMap = cmData.ranges;
       })
   }
 
   getRangeValue(e: any) {
-    if(e.pointerType === 0) {
-      this.storageMin = (e.value != this.options.floor) ? e.value * 1000 : '';     
-      this.commonServiceApi.setMinStorage(this.storageMin);
+    if (e.pointerType === 0) {
+      let minRange = this.rangStorageMap.find(res => e.value === res.value);
+      this.storageMin = (e.value != this.options.floor) ? minRange.legend : '';
+      this.commonServiceApi.setMinStorage(minRange.gbValue);
     }
-    if(e.pointerType === 1) {
-      this.storageMax = (e.highValue != this.options.ceil) ? e.highValue * 1000 : ''
-      this.commonServiceApi.setMaxStorage(this.storageMax);
+    if (e.pointerType === 1) {
+      let maxRange = this.rangStorageMap.find(res => e.highValue === res.value);
+      this.storageMax = (e.highValue != this.options.ceil) ? maxRange.legend : '';
+      const maxValue = (e.highValue != this.options.ceil) ? maxRange.gbValue : '';
+      this.commonServiceApi.setMaxStorage(maxValue);
     }
   }
 
-  shareCheckedList(item:any[]){
+  shareCheckedList(item: any[]) {
     this.commonServiceApi.setSelectedHdds(item);
   }
-  shareIndividualCheckedList(item:{}){
+
+  shareIndividualCheckedList(item: {}) {
     //console.log(item);
   }
 
@@ -82,14 +90,13 @@ export class FiltersComponent implements OnInit {
   }
 
   onCheckboxChange(e: any) {
-    const ramList : FormArray = this.form.get('ramLi') as FormArray;  
+    const ramList: FormArray = this.form.get('ramLi') as FormArray;
     if (e.target.checked) {
       ramList.push(new FormControl(e.target.value));
     } else {
-       const index = ramList.controls.findIndex(x => x.value === e.target.value);
-       ramList.removeAt(index);
+      const index = ramList.controls.findIndex(x => x.value === e.target.value);
+      ramList.removeAt(index);
     }
-    console.log(ramList.value)
     this.commonServiceApi.setSelectedRams(ramList.value);
   }
 }

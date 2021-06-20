@@ -6,6 +6,7 @@ import { ServerApiService } from '../services/server-api.service';
 import { of } from 'rxjs';
 
 import { HomeComponent } from './home.component';
+import { HeaderComponent } from '../header/header.component';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -56,16 +57,51 @@ describe('HomeComponent', () => {
     fixture.detectChanges();
     fixture.whenStable().then(() => {
       component.serverList = response;
+      component.isLoader = false;
+      expect(response[0].servers.length).toEqual(1);
       expect(component.serverList).toEqual(response);
     });
   });
 
+  it('call getServersData with empty records ', () => {
+    const response: any[] = [
+      {
+        servers: []
+      }
+    ];
+    let fixture = TestBed.createComponent(HomeComponent);
+    let component = fixture.debugElement.componentInstance;
+    const service = fixture.debugElement.injector.get(ServerApiService);
+    spyOn(service, 'getServersData').and.returnValue(of(response[0].servers));
+    fixture.detectChanges();
+    fixture.whenStable().then(() => {
+      component.isLoader = false;
+      component.errorHandler = {
+        error: true,
+        message: 'No records'
+      }
+      expect(response[0].servers.length).toBe(0);
+      expect(component.errorHandler.error).toEqual(true);
+    });
+  });
+
   it('called storageMin event emitter and get response', () => {
-    const response: number = 100;
+    const response: number = 500;
     let fixture = TestBed.createComponent(HomeComponent);
     let component = fixture.debugElement.componentInstance;
     const service = fixture.debugElement.injector.get(CommonApiService);
     service.setMinStorage(1000);
+    service.storageMin.subscribe((response: any) => {
+      component.minParam = response;
+    })
+  });
+
+  it('called storageMin event emitter and get response', () => {
+    const response: number = 250;
+    let fixture = TestBed.createComponent(HomeComponent);
+    let component = fixture.debugElement.componentInstance;
+    const service = fixture.debugElement.injector.get(CommonApiService);
+    service.setMinStorage(250);
     service.storageMin.subscribe((response: any) => {
       component.minParam = response;
     })
@@ -116,6 +152,13 @@ describe('HomeComponent', () => {
     service.selectedLocation.subscribe((response: any) => {
       component.locParam = response;
     })
+  });
+
+  it('close dialog box', () => {
+    let fixture = TestBed.createComponent(HomeComponent);
+    let component = fixture.componentInstance;
+    fixture.detectChanges();
+    component.onHandleError();
   });
 
 });

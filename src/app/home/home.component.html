@@ -26,8 +26,13 @@
       </table>
       <pagination-controls (pageChange)="p = $event"></pagination-controls>
     </div>
-    <div *ngIf="serverList.length === 0" style="text-align:center;">
+    <div *ngIf="isLoader && !errorHandler.error" style="text-align:center;">
       <app-loading-spinner></app-loading-spinner>
     </div>
+    <div *ngIf="!errorHandler.error && serverList.length === 0" style="text-align:center;">
+      <p>No records found!</p>
+    </div>
+    <app-alert-component [message]="errorHandler.message" (close)="onHandleError()" *ngIf="errorHandler.error">
+    </app-alert-component>
   </div>
 </div>

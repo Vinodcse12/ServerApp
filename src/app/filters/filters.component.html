@@ -1,26 +1,29 @@
 <form>
-  <div class="form-group">
-    <label for="email">Range Slider </label>
+  <div class="form-group form-container">
+    <label for="storage">Select Storage</label>
     <ngx-slider [(value)]="value" [(highValue)]="highValue" [options]="options" (userChange)="getRangeValue($event)">
     </ngx-slider>
+    <label for="min" class="left-float">Min: {{storageMin }} </label>
+    <label for="max" class="right-fload">Max: {{storageMax }} </label>
   </div>
-  <div class="form-group">
-    <label for="website">Select Ram </label>
-    <div *ngFor="let rm of ramList">
-      <label class="ram-list">
-        <input id="simpleInput" type="checkbox" [value]="rm.value" (change)="onCheckboxChange($event)" />
-        {{rm.label}}
-      </label>
+  <div class="form-group form-container">
+    <label for="ram">Select Ram </label>
+    <div class="flex-contaier">
+      <div *ngFor="let rm of ramList" class="flex-items">
+        <label class="ram-list">{{rm.label}}
+          <input id="simpleInput" type="checkbox" [value]="rm.value" (change)="onCheckboxChange($event)" />
+        </label>
+      </div>
     </div>
   </div>
   <div class="form-group">
-    <label for="password">Select HDD</label>
+    <label for="hdd">Select HDD</label>
     <app-multi-select-dropdown class="multi-select" [list]="hddList" (shareCheckedList)="shareCheckedList($event)"
       (shareIndividualCheckedList)="shareIndividualCheckedList($event)">
     </app-multi-select-dropdown>
   </div>
   <div class="form-group">
-    <label for="password">Select Location</label>
+    <label for="location">Select Location</label>
     <select class="form-control select" (change)="changeLocation($event)">
       <option>Choose ...</option>
       <option *ngFor="let location of locations">{{location.value}}</option>

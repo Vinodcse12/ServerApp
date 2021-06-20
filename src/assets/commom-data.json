@@ -1,26 +1,150 @@
-{  
+{
   "ramList": [
-    { "id": 1, "label": "2GB", "value": 2 },
-    { "id": 2, "label": "4GB", "value": 4 },
-    { "id": 3, "label": "8GB", "value": 8 },
-    { "id": 4, "label": "16GB", "value": 16 },
-    { "id": 5, "label": "24GB", "value": 24 },
-    { "id": 6, "label": "32GB", "value": 32 },
-    { "id": 7, "label": "64GB", "value": 64 },
-    { "id": 7, "label": "116GB", "value": 132 }
+    {
+      "id": 1,
+      "label": "2GB",
+      "value": 2
+    },
+    {
+      "id": 2,
+      "label": "4GB",
+      "value": 4
+    },
+    {
+      "id": 3,
+      "label": "8GB",
+      "value": 8
+    },
+    {
+      "id": 4,
+      "label": "16GB",
+      "value": 16
+    },
+    {
+      "id": 5,
+      "label": "24GB",
+      "value": 24
+    },
+    {
+      "id": 6,
+      "label": "32GB",
+      "value": 32
+    },
+    {
+      "id": 7,
+      "label": "64GB",
+      "value": 64
+    },
+    {
+      "id": 7,
+      "label": "116GB",
+      "value": 132
+    }
   ],
   "hddList": [
-    { "name" :"SAS", "checked" : false},
-    { "name" :"SSD", "checked" : false},
-    { "name" :"SATA2", "checked" : false}
+    {
+      "name": "SAS",
+      "checked": false
+    },
+    {
+      "name": "SSD",
+      "checked": false
+    },
+    {
+      "name": "SATA2",
+      "checked": false
+    }
   ],
   "locations": [
-    { "id": 1, "value": "AmsterdamAMS-01"},
-    { "id": 2, "value": "Washington D.C.WDC-01"},
-    { "id": 3, "value": "San FranciscoSFO-12"},
-    { "id": 4, "value": "SingaporeSIN-11"},
-    { "id": 5, "value": "DallasDAL-10"},
-    { "id": 6, "value": "FrankfurtFRA-10"},
-    { "id": 7, "value": "Hong KongHKG-10"}
+    {
+      "id": 1,
+      "value": "AmsterdamAMS-01"
+    },
+    {
+      "id": 2,
+      "value": "Washington D.C.WDC-01"
+    },
+    {
+      "id": 3,
+      "value": "San FranciscoSFO-12"
+    },
+    {
+      "id": 4,
+      "value": "SingaporeSIN-11"
+    },
+    {
+      "id": 5,
+      "value": "DallasDAL-10"
+    },
+    {
+      "id": 6,
+      "value": "FrankfurtFRA-10"
+    },
+    {
+      "id": 7,
+      "value": "Hong KongHKG-10"
+    }
+  ],
+  "ranges": [
+    {
+      "value": 0,
+      "legend": "0",
+      "gbValue": 0
+    },
+    {
+      "value": 1,
+      "legend": "250GB",
+      "gbValue": 250
+    },
+    {
+      "value": 2,
+      "legend": "500GB",
+      "gbValue": 500
+    },
+    {
+      "value": 3,
+      "legend": "1TB",
+      "gbValue": 1000
+    },
+    {
+      "value": 4,
+      "legend": "2TB",
+      "gbValue": 2000
+    },
+    {
+      "value": 5,
+      "legend": "3TB",
+      "gbValue": 3000
+    },
+    {
+      "value": 6,
+      "legend": "4TB",
+      "gbValue": 4000
+    },
+    {
+      "value": 7,
+      "legend": "8TB",
+      "gbValue": 8000
+    },
+    {
+      "value": 8,
+      "legend": "12TB",
+      "gbValue": 12000
+    },
+    {
+      "value": 9,
+      "legend": "24TB",
+      "gbValue": 24000
+    },
+    {
+      "value": 10,
+      "legend": "48TB",
+      "gbValue": 48000
+    },
+    {
+      "value": 11,
+      "legend": "72TB",
+      "gbValue": 72000
+    }
   ]
 }

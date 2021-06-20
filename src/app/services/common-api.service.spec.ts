@@ -52,13 +52,17 @@ describe('CommonApiService', () => {
   });
 
   it('set Hdd value ', () => {
-    const locValue = ['AmsterdamAMS-01'];
+    const locValue = ['SAS'];
     service.setSelectedHdds(locValue); 
   });
 
+  it('set no location  ', () => {
+    let locValue  = 'Choose ...';
+    service.setSelectedLocation(locValue); 
+  });
+
   it('set location ', () => {
-    let locValue  = ['Choose ...'];
-    locValue = [''];
+    let locValue  = ['AmsterdamAMS-01'];
     service.setSelectedLocation(locValue); 
   });
 

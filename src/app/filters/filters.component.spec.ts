@@ -81,28 +81,96 @@ describe('FiltersComponent', () => {
   }));
 
   it('should render funtion getRangeValue with pointerType 1 ', () => {
-    const fixture = TestBed.createComponent(FiltersComponent);
-    component = fixture.componentInstance;
-    let e = {
-      pointerType: 1,
-      value: 1,
-      hignhValue: 2
-    }
+    const response: any[] = [
+      {
+        ranges: [
+          {
+            "value": 0,
+            "legend": "48TB",
+            "gbValue": 48000
+          }
+        ]
+      }
+    ]
+    let fixture = TestBed.createComponent(FiltersComponent);
+    let component = fixture.debugElement.componentInstance;
+    const service = fixture.debugElement.injector.get(CommonApiService);
+    spyOn(service, 'getCommonData').and.returnValue(of(response));
     fixture.detectChanges();
-    component.getRangeValue(e);
+    fixture.whenStable().then(() => {
+      component.rangStorageMap = response[0].ranges;      
+      let e = {
+        pointerType: 1,
+        value: 1,
+        hignhValue: 11
+      }
+      const maxValue = response[0].ranges.gbValue;
+      fixture.detectChanges();
+      component.getRangeValue(e);
+      expect(component.rangStorageMap).toEqual(response[0].ranges);
+    });
+  });
+
+  it('else should render funtion getRangeValue with pointerType 1 ', () => {
+    const response: any[] = [
+      {
+        ranges: [
+          {
+            "value": 0,
+            "legend": "48TB",
+            "gbValue": 48000
+          }
+        ]
+      }
+    ]
+    let fixture = TestBed.createComponent(FiltersComponent);
+    let component = fixture.debugElement.componentInstance;
+    const service = fixture.debugElement.injector.get(CommonApiService);
+    spyOn(service, 'getCommonData').and.returnValue(of(response));
+    fixture.detectChanges();
+    fixture.whenStable().then(() => {
+      component.rangStorageMap = response[0].ranges;
+      expect(component.rangStorageMap).toEqual(response[0].ranges);
+      let e = {
+        pointerType: 0,
+        value: 0,
+        hignhValue: 2
+      }
+      fixture.detectChanges();
+      component.getRangeValue(e);
+    });
   });
 
   it('should render funtion getRangeValue with pointerType 0 ', () => {
-    const fixture = TestBed.createComponent(FiltersComponent);
-    component = fixture.componentInstance;
-    let e = {
-      pointerType: 0,
-      value: 1,
-      hignhValue: 2
-    }
+    const response: any[] = [
+      {
+        ranges: [
+          {
+            "value": 0,
+            "legend": "0",
+            "gbValue": 250
+          }
+        ]
+      }
+    ]
+    let fixture = TestBed.createComponent(FiltersComponent);
+    let component = fixture.debugElement.componentInstance;
+    const service = fixture.debugElement.injector.get(CommonApiService);
+    spyOn(service, 'getCommonData').and.returnValue(of(response));
     fixture.detectChanges();
-    component.getRangeValue(e);
+    fixture.whenStable().then(() => {
+      component.rangStorageMap = response[0].ranges;
+      expect(component.rangStorageMap).toEqual(response[0].ranges);
+      let e = {
+        pointerType: 0,
+        value: 1,
+        hignhValue: 2
+      }
+      fixture.detectChanges();
+      component.getRangeValue(e);         
+    });    
   });
+  
 
   it('should render funtion shareCheckedList and pass item ', () => {
     const fixture = TestBed.createComponent(FiltersComponent);
@@ -145,6 +213,19 @@ describe('FiltersComponent', () => {
     component.onCheckboxChange(e);
   });
 
+  it('called onCheckboxChange function on unchecked ram', () => {
+    const fixture = TestBed.createComponent(FiltersComponent);
+    component = fixture.componentInstance;
+    let e = {
+      target: {
+        checked: false,
+        value: 2
+      }
+    }
+    fixture.detectChanges();
+    component.onCheckboxChange(e);
+  });
+
   it('called getCommonData end point successfully', () => {
     const response: any[] = [
       {
@@ -156,6 +237,13 @@ describe('FiltersComponent', () => {
         ],
         locations: [
           { "id": 1, "value": "AmsterdamAMS-01" }
+        ],
+        ranges: [
+          {
+            "value": 0,
+            "legend": "0",
+            "gbValue": 0
+          }
         ]
       }
     ]
@@ -168,9 +256,11 @@ describe('FiltersComponent', () => {
       component.ramList = response[0].ramList;
       component.hddList = response[0].hddList;
       component.locations = response[0].locations;
+      component.rangStorageMap = response[0].ranges;
       expect(component.ramList).toEqual(response[0].ramList);
       expect(component.hddList).toEqual(response[0].hddList);
       expect(component.locations).toEqual(response[0].locations);
+      expect(component.rangStorageMap).toEqual(response[0].ranges);
     });
   });
 

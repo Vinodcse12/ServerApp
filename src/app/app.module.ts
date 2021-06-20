@@ -10,6 +10,7 @@ import { MultiSelectDropdownComponent } from './multi-select-dropdown/multi-sele
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
+import { AlertComponentComponent } from './alert-component/alert-component.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.compo
     HomeComponent,
     FiltersComponent,
     MultiSelectDropdownComponent,
-    LoadingSpinnerComponent
+    LoadingSpinnerComponent,
+    AlertComponentComponent
   ],
   imports: [
     BrowserModule,
